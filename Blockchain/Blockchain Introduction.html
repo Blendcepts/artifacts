@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Blockchain Introduction.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="blockchain-short-intro">Blockchain Short Intro</h1>
+<h2 id="definition">Definition</h2>
+<p>Blockchain is a distributed digital ledger technology that maintains a continuously growing list of records (blocks) that are cryptographically linked and secured against tampering. Each block contains a cryptographic hash of the previous block, a timestamp, and transaction data, creating an immutable chain of information that is replicated across a network of participants without requiring a central authority.</p>
+<pre><code class="language-mermaid"><div class="mermaid">mindmap
+  root((Blockchain Technology))
+    Distributed Ledger
+      Decentralized Network
+      Multiple Nodes
+      No Single Authority
+    Cryptographic Security
+      Hash Functions
+      Digital Signatures
+      Immutable Records
+    Block Structure
+      Transaction Data
+      Timestamps
+      Previous Hash Links
+</div></code></pre>
+<h2 id="foundational-concepts">Foundational Concepts</h2>
+<ol>
+<li><strong>Cryptographic Hashing</strong> - Mathematical functions that convert input data into fixed-length strings, ensuring data integrity and enabling efficient verification</li>
+<li><strong>Distributed Networks</strong> - Multiple independent nodes maintaining copies of the same data, eliminating single points of failure</li>
+<li><strong>Consensus Mechanisms</strong> - Protocols that enable network participants to agree on the validity of transactions without central coordination</li>
+<li><strong>Digital Signatures</strong> - Cryptographic proof of ownership and authorization using public-private key pairs</li>
+<li><strong>Immutability</strong> - Once data is recorded and confirmed, it becomes extremely difficult to alter or delete</li>
+<li><strong>Transparency</strong> - All transactions are visible to network participants while maintaining privacy through pseudonymous addresses</li>
+<li><strong>Decentralization</strong> - No single entity controls the network; authority is distributed among participants</li>
+</ol>
+<pre><code class="language-mermaid"><div class="mermaid">flowchart TD
+    A[Cryptographic Hashing] --> B[Data Integrity]
+    C[Distributed Networks] --> D[Fault Tolerance]
+    E[Consensus Mechanisms] --> F[Network Agreement]
+    G[Digital Signatures] --> H[Transaction Authorization]
+    I[Immutability] --> J[Tamper Resistance]
+    K[Transparency] --> L[Public Verification]
+    M[Decentralization] --> N[Distributed Authority]
+    B --> O[Blockchain Security]
+    D --> O
+    F --> O
+    H --> O
+    J --> O
+    L --> O
+    N --> O
+</div></code></pre>
+<h2 id="hierarchical-levels">Hierarchical Levels</h2>
+<h3 id="level-1-basic-components">Level 1: Basic Components</h3>
+<p><strong>Fundamental elements and operations:</strong></p>
+<ul>
+<li><strong>Blocks</strong>: Data containers holding transaction records, timestamps, and hash references</li>
+<li><strong>Transactions</strong>: Individual records of value or information transfer between parties</li>
+<li><strong>Nodes</strong>: Individual computers maintaining copies of the blockchain</li>
+<li><strong>Hash Functions</strong>: SHA-256 algorithms creating unique fingerprints for each block</li>
+<li><strong>Public/Private Keys</strong>: Cryptographic pairs enabling secure transactions and identity verification</li>
+<li><strong>Merkle Trees</strong>: Binary tree structures efficiently summarizing all transactions in a block</li>
+</ul>
+<p><em>Example</em>: Bitcoin transactions where Alice sends 0.5 BTC to Bob, recorded in a block with hash 000000000019d6689c085ae165831e93 linking to the previous block.</p>
+<h3 id="level-2-systems--integration">Level 2: Systems &amp; Integration</h3>
+<p><strong>How components work together:</strong></p>
+<ul>
+<li><strong>Mining/Validation Process</strong>: Nodes compete to solve cryptographic puzzles to add new blocks</li>
+<li><strong>Network Propagation</strong>: New transactions broadcast across the network for validation</li>
+<li><strong>Consensus Achievement</strong>: Majority agreement on valid transactions through mechanisms like Proof of Work</li>
+<li><strong>Fork Resolution</strong>: Network handling of competing blockchain versions</li>
+<li><strong>Smart Contracts</strong>: Self-executing contracts with terms directly written into code</li>
+<li><strong>Wallet Systems</strong>: Interfaces for users to interact with the blockchain</li>
+</ul>
+<p><em>Example</em>: Ethereum's smart contract platform where decentralized applications automatically execute when predetermined conditions are met, like releasing escrow funds when delivery is confirmed.</p>
+<h3 id="level-3-advanced-applications">Level 3: Advanced Applications</h3>
+<p><strong>Complex implementations and use cases:</strong></p>
+<ul>
+<li><strong>Decentralized Finance (DeFi)</strong>: Lending, borrowing, and trading without traditional banks</li>
+<li><strong>Supply Chain Management</strong>: Tracking products from origin to consumer with immutable records</li>
+<li><strong>Digital Identity</strong>: Self-sovereign identity systems giving users control over personal data</li>
+<li><strong>Non-Fungible Tokens (NFTs)</strong>: Unique digital assets representing ownership of specific items</li>
+<li><strong>Cross-Border Payments</strong>: International transfers without traditional banking intermediaries</li>
+<li><strong>Governance Systems</strong>: Decentralized autonomous organizations (DAOs) with token-based voting</li>
+</ul>
+<p><em>Example</em>: Walmart's food traceability system tracking produce from farms through distribution centers to stores, enabling rapid identification of contamination sources.</p>
+<h3 id="level-4-strategic-context">Level 4: Strategic Context</h3>
+<p><strong>Business/societal impact and future directions:</strong></p>
+<ul>
+<li><strong>Financial System Disruption</strong>: Challenging traditional banking and payment systems</li>
+<li><strong>Regulatory Evolution</strong>: Governments developing frameworks for blockchain governance</li>
+<li><strong>Energy Considerations</strong>: Environmental impact of energy-intensive consensus mechanisms</li>
+<li><strong>Scalability Solutions</strong>: Layer 2 protocols and alternative consensus mechanisms addressing transaction throughput</li>
+<li><strong>Interoperability</strong>: Connecting different blockchain networks for seamless value transfer</li>
+<li><strong>Central Bank Digital Currencies (CBDCs)</strong>: Government-issued digital currencies using blockchain principles</li>
+</ul>
+<p><em>Example</em>: El Salvador adopting Bitcoin as legal tender, demonstrating blockchain's potential to reshape national monetary systems while highlighting regulatory and economic challenges.</p>
+<pre><code class="language-mermaid"><div class="mermaid">flowchart LR
+    Level1[Basic Components<br/>Blocks, Transactions, Nodes<br/>Hash Functions, Keys] --> Level2[Systems & Integration<br/>Mining, Consensus<br/>Smart Contracts, Wallets]
+    Level2 --> Level3[Advanced Applications<br/>DeFi, Supply Chain<br/>NFTs, DAOs]
+    Level3 --> Level4[Strategic Context<br/>Financial Disruption<br/>Regulation, Scalability]
+</div></code></pre>
+<h2 id="key-relationships">Key Relationships</h2>
+<p><strong>Cause-Effect Relationships and Dependencies:</strong></p>
+<p><strong>Cryptographic Security → Trust Without Authority</strong>
+Cryptographic hashing and digital signatures eliminate the need for trusted intermediaries by making fraud computationally infeasible.</p>
+<p><strong>Decentralization → Censorship Resistance</strong>
+Distributed network structure prevents any single entity from controlling or shutting down the system, but requires consensus mechanisms to maintain coordination.</p>
+<p><strong>Immutability → Transparency Paradox</strong>
+While transactions are permanent and visible, user identities remain pseudonymous, creating accountability without sacrificing privacy.</p>
+<p><strong>Network Effects → Value Creation</strong>
+As more participants join the network, utility and security increase exponentially, but early adoption faces bootstrapping challenges.</p>
+<p><strong>Consensus Requirements → Scalability Trade-offs</strong>
+Stronger security through rigorous consensus mechanisms often reduces transaction throughput, requiring innovative solutions like sharding or layer 2 protocols.</p>
+<p><strong>Energy Consumption → Sustainability Concerns</strong>
+Proof of Work consensus provides robust security but requires significant computational resources, driving development of alternative mechanisms like Proof of Stake.</p>
+<p><strong>Smart Contract Capabilities → Systemic Risk</strong>
+Programmable money enables complex financial instruments but introduces new vulnerabilities through code bugs or economic exploits.</p>
+<p>These relationships demonstrate that blockchain technology involves fundamental trade-offs between security, scalability, and decentralization, with each design choice creating ripple effects throughout the system's functionality and adoption potential.</p>
+<pre><code class="language-mermaid"><div class="mermaid">flowchart TD
+    A[Cryptographic Security] --> B[Trust Without Authority]
+    C[Decentralization] --> D[Censorship Resistance]
+    E[Immutability] --> F[Transparency Paradox]
+    G[Network Effects] --> H[Value Creation]
+    I[Consensus Requirements] --> J[Scalability Trade-offs]
+    K[Energy Consumption] --> L[Sustainability Concerns]
+    M[Smart Contract Capabilities] --> N[Systemic Risk]
+    
+    B --> O[Reduced Intermediaries]
+    D --> P[System Resilience]
+    F --> Q[Privacy-Transparency Balance]
+    H --> R[Adoption Growth]
+    J --> S[Technical Innovation]
+    L --> T[Alternative Mechanisms]
+    N --> U[Risk Management Needs]
+</div></code></pre>
+
+</body>
+</html>

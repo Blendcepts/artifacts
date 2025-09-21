@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Machine Learning.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="analysis">Analysis</h1>
+<h2 id="definition">Definition</h2>
+<p>Machine Learning is a subset of artificial intelligence that enables computer systems to automatically learn and improve performance on specific tasks through experience, without being explicitly programmed for every scenario. It uses algorithms to identify patterns in data, build mathematical models based on training data, and make predictions or decisions on new, unseen data.</p>
+<pre><code class="language-mermaid"><div class="mermaid">mindmap
+  root((Machine Learning))
+    Data
+      Raw Information
+      Training Sets
+      Features
+    Algorithms
+      Pattern Recognition
+      Mathematical Procedures
+      Learning Rules
+    Models
+      Mathematical Representations
+      Predictive Systems
+      Decision Functions
+    Applications
+      Prediction
+      Classification
+      Optimization
+    Capabilities
+      Automatic Learning
+      Performance Improvement
+      Pattern Discovery
+</div></code></pre>
+<h2 id="foundational-concepts">Foundational Concepts</h2>
+<ol>
+<li><strong>Data</strong>: Raw information that serves as input for learning algorithms</li>
+<li><strong>Algorithms</strong>: Mathematical procedures that process data to identify patterns</li>
+<li><strong>Models</strong>: Mathematical representations of real-world processes learned from data</li>
+<li><strong>Training</strong>: The process of teaching algorithms using historical data</li>
+<li><strong>Prediction</strong>: Using trained models to make inferences about new data</li>
+<li><strong>Features</strong>: Individual measurable properties of observed phenomena</li>
+<li><strong>Optimization</strong>: Mathematical techniques to minimize error and improve model performance</li>
+</ol>
+<pre><code class="language-mermaid"><div class="mermaid">flowchart TD
+    A[Data] --> B[Algorithms]
+    B --> C[Training Process]
+    C --> D[Models]
+    D --> E[Prediction]
+    F[Features] --> A
+    G[Optimization] --> C
+    G --> D
+    A --> H[Pattern Recognition]
+    H --> B
+    D --> I[Performance Evaluation]
+    I --> G
+    E --> J[New Insights]
+    J --> K[Model Improvement]
+    K --> C
+</div></code></pre>
+<h2 id="hierarchical-levels">Hierarchical Levels</h2>
+<h3 id="level-1-basic-components">Level 1: Basic Components</h3>
+<p><strong>Core Mathematical Operations:</strong></p>
+<ul>
+<li>Linear algebra (matrix operations, vector calculations)</li>
+<li>Statistical analysis (probability distributions, correlation)</li>
+<li>Calculus (derivatives for optimization)</li>
+<li>Distance metrics (measuring similarity between data points)</li>
+</ul>
+<p><strong>Data Processing:</strong></p>
+<ul>
+<li>Data collection and storage</li>
+<li>Data cleaning and preprocessing</li>
+<li>Feature extraction and selection</li>
+<li>Data splitting (training/validation/test sets)</li>
+</ul>
+<p><strong>Basic Algorithm Types:</strong></p>
+<ul>
+<li>Linear regression for continuous predictions</li>
+<li>Classification algorithms for categorical decisions</li>
+<li>Clustering for grouping similar data points</li>
+</ul>
+<h3 id="level-2-systems--integration">Level 2: Systems &amp; Integration</h3>
+<p><strong>Learning Paradigms:</strong></p>
+<ul>
+<li>Supervised learning (learning with labeled examples)</li>
+<li>Unsupervised learning (finding hidden patterns)</li>
+<li>Reinforcement learning (learning through trial and error)</li>
+<li>Semi-supervised learning (combining labeled and unlabeled data)</li>
+</ul>
+<p><strong>Model Training Pipeline:</strong></p>
+<ul>
+<li>Data ingestion and validation</li>
+<li>Feature engineering and transformation</li>
+<li>Algorithm selection and hyperparameter tuning</li>
+<li>Cross-validation and performance evaluation</li>
+<li>Model selection and deployment preparation</li>
+</ul>
+<p><strong>Performance Evaluation:</strong></p>
+<ul>
+<li>Metrics selection (accuracy, precision, recall, F1-score)</li>
+<li>Bias-variance tradeoff management</li>
+<li>Overfitting and underfitting detection</li>
+<li>Model interpretability and explainability</li>
+</ul>
+<h3 id="level-3-advanced-applications">Level 3: Advanced Applications</h3>
+<p><strong>Deep Learning Systems:</strong></p>
+<ul>
+<li>Neural networks with multiple hidden layers</li>
+<li>Convolutional Neural Networks (CNNs) for image processing</li>
+<li>Recurrent Neural Networks (RNNs) for sequential data</li>
+<li>Transformer architectures for natural language processing</li>
+</ul>
+<p><strong>Specialized Applications:</strong></p>
+<ul>
+<li>Computer vision (object detection, image classification)</li>
+<li>Natural language processing (sentiment analysis, translation)</li>
+<li>Recommendation systems (collaborative filtering, content-based)</li>
+<li>Time series forecasting (financial markets, weather prediction)</li>
+</ul>
+<p><strong>Advanced Techniques:</strong></p>
+<ul>
+<li>Ensemble methods (combining multiple models)</li>
+<li>Transfer learning (adapting pre-trained models)</li>
+<li>Active learning (selecting most informative data points)</li>
+<li>Federated learning (training across distributed data sources)</li>
+</ul>
+<h3 id="level-4-strategic-context">Level 4: Strategic Context</h3>
+<p><strong>Business Integration:</strong></p>
+<ul>
+<li>ROI measurement and business case development</li>
+<li>Integration with existing business processes</li>
+<li>Change management and user adoption</li>
+<li>Competitive advantage and market differentiation</li>
+</ul>
+<p><strong>Scalability and Infrastructure:</strong></p>
+<ul>
+<li>Cloud computing platforms (AWS, Google Cloud, Azure)</li>
+<li>MLOps (machine learning operations) for production deployment</li>
+<li>Real-time inference systems</li>
+<li>Data governance and compliance frameworks</li>
+</ul>
+<p><strong>Societal and Ethical Considerations:</strong></p>
+<ul>
+<li>Algorithmic bias and fairness</li>
+<li>Privacy protection and data rights</li>
+<li>Transparency and accountability in AI decisions</li>
+<li>Job displacement and workforce transformation</li>
+<li>Regulatory compliance and ethical AI frameworks</li>
+</ul>
+<pre><code class="language-mermaid"><div class="mermaid">flowchart LR
+    A[Level 1: Basic Components] --> B[Level 2: Systems & Integration]
+    B --> C[Level 3: Advanced Applications]
+    C --> D[Level 4: Strategic Context]
+    
+    A1[Mathematical Operations<br/>Data Processing<br/>Basic Algorithms] --> A
+    B1[Learning Paradigms<br/>Training Pipeline<br/>Performance Evaluation] --> B
+    C1[Deep Learning<br/>Specialized Applications<br/>Advanced Techniques] --> C
+    D1[Business Integration<br/>Infrastructure<br/>Ethical Considerations] --> D
+    
+    A --> A2[Foundation Building]
+    B --> B2[System Development]
+    C --> C2[Advanced Implementation]
+    D --> D2[Strategic Deployment]
+</div></code></pre>
+<h2 id="key-relationships">Key Relationships</h2>
+<p><strong>Data-Algorithm Dependency:</strong> The quality and quantity of data directly determines algorithm performance. More diverse, high-quality data typically leads to better model generalization, while poor data quality creates a ceiling on potential performance regardless of algorithm sophistication.</p>
+<p><strong>Training-Performance Feedback Loop:</strong> Model performance on validation data guides algorithm adjustments, creating an iterative improvement cycle. Poor performance triggers feature engineering, algorithm changes, or additional data collection.</p>
+<p><strong>Complexity-Interpretability Tradeoff:</strong> More sophisticated models (like deep neural networks) often achieve better performance but become less interpretable, creating tension between accuracy and explainability in business applications.</p>
+<p><strong>Scale-Accuracy Relationship:</strong> Larger datasets and more computational resources generally enable more accurate models, but with diminishing returns and exponentially increasing costs.</p>
+<p><strong>Domain Knowledge-Feature Engineering Connection:</strong> Subject matter expertise dramatically improves feature selection and engineering, often providing better results than purely algorithmic approaches.</p>
+<p><strong>Business Constraints-Technical Decisions:</strong> Real-world requirements like latency, interpretability, and regulatory compliance directly influence algorithm selection and model architecture choices.</p>
+<p><strong>Infrastructure-Innovation Capability:</strong> Available computing resources and data infrastructure determine which advanced techniques are practically feasible, creating a direct link between technical capacity and AI capability.</p>
+<pre><code class="language-mermaid"><div class="mermaid">flowchart TD
+    A[Data Quality & Quantity] --> B[Algorithm Performance]
+    B --> C[Model Training]
+    C --> D[Performance Evaluation]
+    D --> E{Performance Acceptable?}
+    E -->|No| F[Feature Engineering]
+    E -->|No| G[Algorithm Adjustment]
+    E -->|No| H[Additional Data Collection]
+    F --> C
+    G --> C
+    H --> A
+    E -->|Yes| I[Model Deployment]
+    
+    J[Domain Knowledge] --> K[Feature Engineering]
+    K --> A
+    
+    L[Business Constraints] --> M[Technical Requirements]
+    M --> N[Algorithm Selection]
+    N --> B
+    
+    O[Infrastructure Capacity] --> P[Computational Resources]
+    P --> Q[Model Complexity]
+    Q --> B
+    Q --> R[Interpretability]
+    R --> S[Business Applications]
+    
+    I --> T[Real-world Performance]
+    T --> U[Feedback Loop]
+    U --> D
+</div></code></pre>
+
+</body>
+</html>
